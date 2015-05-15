@@ -47,3 +47,10 @@ Rendering...................[Done]
 GitHub......................[As u can see (github.com/tmteam/URSA)]
 Printing....................[In progress]
 ```
+
+#License
+
+They said it is neccessary. Ok.
+
+Solidworks and stl models: Creative Commons Attribution-NonCommercial 4.0 International Public License
+Code:  MIT
