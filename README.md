@@ -45,7 +45,12 @@ Twitter.....................[@ursarobotics]
 Final modeling..............[Done]
 Rendering...................[Done]
 GitHub......................[As u can see (github.com/tmteam/URSA)]
-Printing....................[In progress]
+Printing....................[60%]
+Assembling..................[60%]
+Body testing................[Not yet]
+Leg  testing................[1/4]
+Head testing................[Not yet]
+
 ```
 
 #License
