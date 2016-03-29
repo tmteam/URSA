@@ -29,11 +29,12 @@ Controllers:
 - Raspberry pi B+
 - Polulu Maestro 24
 - Arduino micro
+- Asus Wifi micro router
 
 Other:
-- Bluetooth
-- Flexible skeleton body
-- Legs amortizing
+- Wifi router for net interaction
+- Flexible skeleton body 
+- Legs are amortizing
 - Ready for FFF/FDM printing (ABS-plastic)
 ```
 # State 
@@ -45,17 +46,15 @@ Twitter.....................[@ursarobotics]
 Final modeling..............[Done]
 Rendering...................[Done]
 GitHub......................[As u can see (github.com/tmteam/URSA)]
-Printing....................[Checking]
-Assembling..................[60%]
+Printing....................[8pc left]
+Assembling..................[80%]
 Body testing................[Not yet]
-Leg  testing................[1/4]
-Head testing................[Not yet]
+Leg  testing................[3/4]
+Head testing................[1/2]
 
 ```
 
 #License
 
-They said it is neccessary. Ok.
-
 Solidworks and stl models: Creative Commons Attribution-NonCommercial 4.0 International Public License
-Code:  MIT
+Code (will):  MIT
