@@ -13,7 +13,7 @@ Width:          240 mm
 Weight:         N/A
 Battery:        Turginy nano-tech 4200 mAh
 Max speed:      N/A
-The purpose of existence: To find the purpose of existence
+The purpose of existence: "Why not?"
 
 Sensors:
 - 4 x leg-pressure
@@ -22,7 +22,7 @@ Sensors:
 - 9-axes accelerometer
 
 Servos:
-- 12 x R3115 (3 pcs for each leg). (0.15sec/60deg, 15kg/cm)
+- 12 x R3115 (3 pcs for leg). (0.15sec/60deg, 15kg/cm)
 - 2 x FS90 (IR mount)
 
 Controllers:
@@ -45,16 +45,16 @@ Components testing..........[Done]
 Twitter.....................[@ursarobotics]
 Final modeling..............[Done]
 Rendering...................[Done]
-GitHub......................[As u can see (github.com/tmteam/URSA)]
+GitHub......................[github.com/tmteam/URSA]
 Printing....................[8pc left]
 Assembling..................[80%]
 Body testing................[Not yet]
 Leg  testing................[3/4]
 Head testing................[1/2]
-
+Software....................[in progress]
 ```
 
 #License
 
 Solidworks and stl models: Creative Commons Attribution-NonCommercial 4.0 International Public License
-Code (will):  MIT
+Code:  MIT
