@@ -8,8 +8,8 @@
     <DockPanel >
         <Label Content="{Binding Name}" Width="60" DockPanel.Dock="Left" Foreground="Black" FontWeight="Bold" />
         <Label Content="{Binding PercentValueForSet}" Width="50" DockPanel.Dock="Right" Foreground="Black" />
-        <Label Content="{Binding ActualValue}" Width="50" DockPanel.Dock="Right" FontSize="10" Foreground="Black" />
+        <Label Content="{Binding ActualValueDegrees}" Width="50" DockPanel.Dock="Right" FontSize="10" Foreground="Black" />
         <Slider DockPanel.Dock="Top" Minimum="0"  Maximum="100" Value="{Binding PercentValueForSet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Height="20"/>
-        <ProgressBar DockPanel.Dock="Top" Height="5" Margin="0,0,5,10" Minimum="0" Maximum="100" Value="{Binding ActualValue}"/>
+        <ProgressBar DockPanel.Dock="Top" Height="5" Margin="0,0,5,10" Minimum="0" Maximum="100" Value="{Binding ActualPercentValue}"/>
     </DockPanel>      
 </UserControl>

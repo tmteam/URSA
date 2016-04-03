@@ -8,20 +8,19 @@ namespace UrsaAlphaControl.VMS
 {
     public class FourLegsVM: VMBase
     {
-        public FourLegsVM(Body body)
-        {
+        public FourLegsVM(Body body) {
             this.Body = body;
             FrontLeft = new LegVM(body.FrontLeft)   {
-                Name = "1FL",
+                Name = body.FrontLeft.Num+ "FL",
             };
             FrontRight = new LegVM(body.FrontRight) {
-                Name = "2FR"
+                Name = body.FrontRight.Num + "FR"
             };
             BackLeft = new LegVM(body.BackLeft)     {
-                Name = "3BL"
+                Name = body.BackLeft.Num + "BL"
             };
             BackRight = new LegVM(body.BackRight)   {
-                Name = "4BR"
+                Name = body.BackRight.Num + "BR"
             };
         }
         public Body Body { get; protected set; }

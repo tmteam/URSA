@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -26,6 +27,7 @@ namespace UrsaAlphaControl
         UrsaVM ursa;
         Usc usc;
         Body body;
+        Timer timer;
         public MainWindow()
         {
             InitializeComponent();
@@ -34,7 +36,17 @@ namespace UrsaAlphaControl
             this.DataContext = ursa;
             ursa.Connect.Executed += Connect_Executed;
             ursa.Disconnect.Executed += Disconnect_Executed;
+            timer = new Timer(100);
+            timer.AutoReset = true;
+            timer.Start();
+            timer.Elapsed += timer_Elapsed;
             
+        }
+
+        void timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            body.UpdateData();
+            timer.Start();
         }
 
         void Disconnect_Executed(ICommand arg1, object arg2)
@@ -56,6 +68,7 @@ namespace UrsaAlphaControl
                 usc = connectToDevice();
                 body.Device = usc;
                 ursa.IsConnected = true;
+                body.StarupServoSetup();
             }
             catch {
                 ursa.IsConnected = false;

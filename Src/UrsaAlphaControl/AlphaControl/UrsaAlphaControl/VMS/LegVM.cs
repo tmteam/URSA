@@ -15,14 +15,14 @@ namespace UrsaAlphaControl.VMS
             Scapula = new ServoVM(leg.Scapula) {
                  Name = "Scapula",
             };
-            Thigh = new ServoVM(leg.Thigh)
-            {
+            Thigh = new ServoVM(leg.Thigh) {
                 Name = "Thigh",
             };
             Shin = new ServoVM(leg.Shin) {
                 Name = "Shin",
             };
-            MaxRawPressure = 100;
+            MaxRawPressure = 1024;
+            leg.Pressure.StatusUpdated += Pressure_StatusUpdated;
         }
 
         public ServoVM Scapula { get; protected set; }
@@ -34,5 +34,10 @@ namespace UrsaAlphaControl.VMS
         public double RawPressure { get { return rawPressure; } set { rawPressure = value; Raise("RawPressure"); } }
         double rawPressure;
         public double MaxRawPressure { get; set; }
+        
+        void Pressure_StatusUpdated(Sensor arg1, Pololu.Usc.ServoStatus arg2) {
+            RawPressure = arg1.RawValue;
+            Pressure = ((double)RawPressure / 1024) * 100;
+        }
     }
 }
