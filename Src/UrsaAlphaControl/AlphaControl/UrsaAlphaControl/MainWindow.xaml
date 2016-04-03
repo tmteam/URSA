@@ -1,0 +1,42 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:View="clr-namespace:UrsaAlphaControl.View" x:Class="UrsaAlphaControl.MainWindow"
+        Title="MainWindow"  SizeToContent="WidthAndHeight" Background="DimGray">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="50"/>
+        </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="Auto"/>
+                <RowDefinition  />
+            </Grid.RowDefinitions>
+            <DockPanel Grid.ColumnSpan="3" VerticalAlignment="Center" >
+                <Button Command="{Binding Connect}"   Width="100" Content="Connect" DockPanel.Dock="Left"/>
+                <Button Command="{Binding Disconnect}" Width="100" Content="Disconnect" DockPanel.Dock="Left"/>
+                <Label DockPanel.Dock="Left" Foreground="White" FontSize="15" FontWeight="Bold" HorizontalContentAlignment="Center" >
+                <Label.Style>
+                    <Style TargetType="Label">
+                        <Setter Property="Background" Value="Red"></Setter>
+                        <Setter Property="Content" Value="Offline"></Setter>
+                        <Style.Triggers>
+                            <DataTrigger  Binding="{Binding IsConnected}" Value="True">
+                                <Setter Property="Background" Value="Green"></Setter>
+                                <Setter Property="Content" Value="Online"></Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Label.Style>
+            </Label>
+         </DockPanel>
+        <DockPanel Grid.Row="1" Grid.Column="1" DataContext="{Binding Legs}" VerticalAlignment="Top">
+            <View:Leg DockPanel.Dock="Top" Margin="5" DataContext="{Binding FrontLeft}"/>
+            <View:Leg DockPanel.Dock="Top" Margin="5" DataContext="{Binding FrontRight}"/>
+            <View:Leg DockPanel.Dock="Top" Margin="5" DataContext="{Binding BackLeft}"/>
+            <View:Leg DockPanel.Dock="Top" Margin="5" DataContext="{Binding BackRight}"/>
+        </DockPanel>
+    </Grid>
+</Window>

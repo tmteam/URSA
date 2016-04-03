@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="UrsaAlphaControl.View.Servo"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+              Width="500" Background="White">
+    <DockPanel >
+        <Label Content="{Binding Name}" Width="60" DockPanel.Dock="Left" Foreground="Black" FontWeight="Bold" />
+        <Label Content="{Binding PercentValueForSet}" Width="50" DockPanel.Dock="Right" Foreground="Black" />
+        <Label Content="{Binding ActualValue}" Width="50" DockPanel.Dock="Right" FontSize="10" Foreground="Black" />
+        <Slider DockPanel.Dock="Top" Minimum="0"  Maximum="100" Value="{Binding PercentValueForSet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Height="20"/>
+        <ProgressBar DockPanel.Dock="Top" Height="5" Margin="0,0,5,10" Minimum="0" Maximum="100" Value="{Binding ActualValue}"/>
+    </DockPanel>      
+</UserControl>
