@@ -9,17 +9,13 @@ namespace Ursa.Cerebellum
     public interface IChannelSettings
     {
         byte Num { get; set; }
-        public ushort Min { get; set; }
-        public ushort Max { get; set; }
+        ushort Min { get; set; }
+        ushort Max { get; set; }
       
     }
-    public class ChannelSettingsBase : IChannelSettings
-    {
-
+    public class ChannelSettingsBase : IChannelSettings {
         public byte Num{get;set;}
-
         public ushort Min{get;set;}
-
         public ushort Max{get;set;}
     }
     public class ServoSettings : ChannelSettingsBase

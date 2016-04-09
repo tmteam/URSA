@@ -9,6 +9,9 @@ using Ursa.Cerebellum;
 
 namespace Ursa.Cerbellum.Maestro24Controller
 {
+    /// <summary>
+    /// Cerebellum implementation for maestro 24 IO controller
+    /// </summary>
     public class Maestro24Controller: ICerebellum
     {
         public Maestro24Controller() { }
@@ -24,6 +27,7 @@ namespace Ursa.Cerbellum.Maestro24Controller
         bool wasConnected= false;
         public Usc Device { get; protected set; }
         IMaestroChannel[] channels = null;
+        public bool IsConfigurated { get; protected set; }
         public Cerebellum.IChannel[] Channels {
             get { return channels; }
         }
@@ -97,11 +101,11 @@ namespace Ursa.Cerbellum.Maestro24Controller
             if (ValuesUpdated != null)
                 ValuesUpdated(this, lastUpdated);
         }
-        public void Setup(IEnumerable<IChannelSettings> settings)
+        public void Configurate(IEnumerable<IChannelSettings> settings)
         {
             settings.ThrowIfSettingsAreWrong();
             if (settings.Any(s => s.Num > 23))
-                throw new ArgumentException("Channel can not be more than 23");
+                throw new ArgumentException("Count of channels can not be more than 23");
             IMaestroChannel[] newChannels = new IMaestroChannel[24];
             foreach (var setting in settings)
             {
@@ -132,6 +136,7 @@ namespace Ursa.Cerbellum.Maestro24Controller
                 if (newChannels[i] == null)
                     newChannels[i] = new MaestroEmptyChannel(Device, (byte)i);
             }
+            IsConfigurated = true;
 
         }
     }

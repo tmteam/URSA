@@ -14,7 +14,8 @@ namespace Ursa.Cerebellum
         /// Channels denending on the cerebellum configuration
         /// </summary>
         IChannel[] Channels { get; }
-        void Setup(IEnumerable<IChannelSettings> settings);
+        bool IsConfigurated { get; }
+        void Configurate(IEnumerable<IChannelSettings> settings);
         /// <summary>
         /// Shows timestamp of a last data update
         /// </summary>

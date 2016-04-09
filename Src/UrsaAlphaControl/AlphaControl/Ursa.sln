@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ursa.Cerebellum", "MaestroC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ursa.Cerbellum.Maestro24Controller", "Ursa.Cerbellum.Maestro24Controller\Ursa.Cerbellum.Maestro24Controller.csproj", "{E7504130-0F18-4E3A-9E87-6292FE16F6C1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ursa.Body", "UrsaBody\Ursa.Body.csproj", "{B6267FC1-75FF-43F5-9D19-B1228D10055E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +93,14 @@ Global
 		{E7504130-0F18-4E3A-9E87-6292FE16F6C1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E7504130-0F18-4E3A-9E87-6292FE16F6C1}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{E7504130-0F18-4E3A-9E87-6292FE16F6C1}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{B6267FC1-75FF-43F5-9D19-B1228D10055E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6267FC1-75FF-43F5-9D19-B1228D10055E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6267FC1-75FF-43F5-9D19-B1228D10055E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{B6267FC1-75FF-43F5-9D19-B1228D10055E}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{B6267FC1-75FF-43F5-9D19-B1228D10055E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6267FC1-75FF-43F5-9D19-B1228D10055E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6267FC1-75FF-43F5-9D19-B1228D10055E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{B6267FC1-75FF-43F5-9D19-B1228D10055E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
