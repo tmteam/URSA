@@ -15,8 +15,8 @@ namespace Ursa.Cerebellum
 
         public float DegreesAtMax { get; set; }
 
-        ServoStatus status;
-        public ServoStatus Status 
+        ServoValue status;
+        public ServoValue Status 
         { 
             get { return status; }
             set {

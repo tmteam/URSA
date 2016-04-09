@@ -11,7 +11,7 @@ namespace Ursa.Cerebellum
         ushort Max { get; }
         float DegreesAtMin { get; }
         float DegreesAtMax { get; }
-        ServoStatus Status { get; }
+        ServoValue Status { get; }
         void WriteSpeed(ushort speed);
         void WriteAcсeleration(ushort Acceleration);
         void WriteTarget(ushort target);

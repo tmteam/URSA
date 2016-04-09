@@ -8,6 +8,5 @@ namespace Ursa.Cerebellum
 {
     public interface ISensorChannel: IChannel
     {
-        void UpdateValue(ushort actualValue);
     }
 }

@@ -8,6 +8,17 @@ namespace Ursa.Cerebellum
 {
     public static class Tools
     {
+        public static void ThrowIfSettingsAreWrong(this IEnumerable<IChannelSettings> settings)
+        {
+            if(settings==null)
+                throw new ArgumentNullException("settings");
+            var channelsNums = new List<int>();
+            foreach (var setting in settings) {
+                if(channelsNums.Contains(setting.Num))
+                    throw new ArgumentException("Two or more settings have same channel num "+ setting.Num);
+                channelsNums.Add(setting.Num);
+            }
+        }
         public static void WriteNormalized(this IServoChannel channel, float target) {
             if (target < 0 || target > 1)
                 throw new ArgumentException("Normalized servo value have to be in [0,1] interval");

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ursa.Cerebellum
 {
-    public struct ServoStatus {
+    public struct ServoValue {
         public ushort Target;
         public ushort Actual;
         public ushort Speed;

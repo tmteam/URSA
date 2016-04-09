@@ -8,8 +8,7 @@ namespace Ursa.Cerebellum
 {
     public class ChannelBase: IChannel
     {
-        public ChannelBase(byte channelNum)
-        {
+        public ChannelBase(byte channelNum) {
             this.Num = channelNum;
         }
 
@@ -17,10 +16,7 @@ namespace Ursa.Cerebellum
         public ushort Min { get; set; }
         public ushort Max { get; set; }
         
-        public ushort Actual {
-            get;
-            protected set;
-        }
+        public ushort Actual { get; protected set; }
 
         protected void RaiseUpdated(ushort value) {
             this.Actual = value;
