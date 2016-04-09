@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ursa.Body;
 
 namespace UrsaAlphaControl.VMS
 {
@@ -22,9 +23,8 @@ namespace UrsaAlphaControl.VMS
                 Name = "Shin",
             };
             MaxRawPressure = 1024;
-            leg.Pressure.StatusUpdated += Pressure_StatusUpdated;
+            leg.ValuesUpdated += leg_ValuesUpdated;
         }
-
         public ServoVM Scapula { get; protected set; }
         public ServoVM Thigh { get; protected set; }
         public ServoVM Shin { get; protected set; }
@@ -34,9 +34,9 @@ namespace UrsaAlphaControl.VMS
         public double RawPressure { get { return rawPressure; } set { rawPressure = value; Raise("RawPressure"); } }
         double rawPressure;
         public double MaxRawPressure { get; set; }
-        
-        void Pressure_StatusUpdated(Sensor arg1, Pololu.Usc.ServoStatus arg2) {
-            RawPressure = arg1.RawValue;
+        void leg_ValuesUpdated(Leg arg1, DateTime arg2)
+        {
+            RawPressure = Leg.Pressure.Actual;
             Pressure = ((double)RawPressure / 1024) * 100;
         }
     }

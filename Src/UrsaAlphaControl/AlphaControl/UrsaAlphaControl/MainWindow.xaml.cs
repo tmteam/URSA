@@ -15,6 +15,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Ursa.Body;
+using Ursa.Cerebellum;
+using Ursa.Cerebellum.Maestro24Controller;
+
 using UrsaAlphaControl.VMS;
 
 namespace UrsaAlphaControl
@@ -24,15 +28,18 @@ namespace UrsaAlphaControl
     /// </summary>
     public partial class MainWindow : Window
     {
-        UrsaVM ursa;
-        Usc usc;
+        BodyVM ursa;
+        Maestro24Controller cerebellum;
         Body body;
         Timer timer;
         public MainWindow()
         {
             InitializeComponent();
-            body = new Body();
-            ursa = new UrsaVM(body);
+            cerebellum = new Maestro24Controller();
+            body  = new Body(cerebellum);
+            body.Configurate(GetDefaultSettings());
+            ursa  = new BodyVM(body);
+
             this.DataContext = ursa;
             ursa.Connect.Executed += Connect_Executed;
             ursa.Disconnect.Executed += Disconnect_Executed;
@@ -40,70 +47,144 @@ namespace UrsaAlphaControl
             timer.AutoReset = true;
             timer.Start();
             timer.Elapsed += timer_Elapsed;
-            
         }
 
         void timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            body.UpdateData();
+            cerebellum.UpdateValues();
             timer.Start();
         }
 
         void Disconnect_Executed(ICommand arg1, object arg2)
         {
             try {
-                usc.disconnect();
+                cerebellum.Disconnect();
+                ursa.IsConnected = false;
             }
             catch{
-
+                
             }
-            body.Device = null;
-            usc = null;
-            ursa.IsConnected = false;
         }
 
         void Connect_Executed(ICommand arg1, object arg2)
         {
             try {
-                usc = connectToDevice();
-                body.Device = usc;
+                cerebellum.Connect();
+                cerebellum.StarupSetup();
                 ursa.IsConnected = true;
-                body.StarupServoSetup();
             }
             catch {
                 ursa.IsConnected = false;
             }
         }
-        void TrySetTarget(Byte channel, UInt16 target)
+
+        BodySettings GetDefaultSettings()
         {
-            if (usc == null)
-                return;
-            try
+            return new BodySettings
             {
-               usc.setTarget(channel, target);
-            }
-            catch (Exception exception)  // Handle exceptions by displaying them to the user.
-            {
-
-            }
+                Legs = new[]{
+                      new LegSettings{
+                           Type = LegType.FrontLeft,
+                           ScapulaSettings  = new ServoSettings{
+                                 Num = 0,
+                                 Min = 1680,
+                                 Max = 10200,
+                                 DegreesAtMin = 0,
+                                 DegreesAtMax = 180,
+                           },
+                            ThighSettings   = new ServoSettings{
+                                 Num = 1,
+                                 Min = 1680,
+                                 Max = 10200,
+                                 DegreesAtMin = 0,
+                                 DegreesAtMax = 180,
+                           },
+                           ShinSettings     = new ServoSettings{
+                                 Num = 2,
+                                 Min = 1680,
+                                 Max = 10200,
+                                 DegreesAtMin = 0,
+                                 DegreesAtMax = 180,
+                           },
+                           PressureSettings = new SensorSettings { Num = 3 },
+                      },
+                      new LegSettings{
+                           Type = LegType.FrontRight,
+                           ScapulaSettings  = new ServoSettings{
+                                 Num = 6,
+                                 Min = 1680,
+                                 Max = 10200,
+                                 DegreesAtMin = 0,
+                                 DegreesAtMax = 180,
+                           },
+                            ThighSettings   = new ServoSettings{
+                                 Num = 7,
+                                 Min = 1680,
+                                 Max = 10200,
+                                 DegreesAtMin = 0,
+                                 DegreesAtMax = 180,
+                           },
+                           ShinSettings     = new ServoSettings{
+                                 Num = 8,
+                                 Min = 1680,
+                                 Max = 10200,
+                                 DegreesAtMin = 0,
+                                 DegreesAtMax = 180,
+                           },
+                           PressureSettings = new SensorSettings { Num = 9 },
+                      },
+                      new LegSettings{
+                           Type = LegType.BackLeft,
+                           ScapulaSettings  = new ServoSettings{
+                                 Num = 12,
+                                 Min = 1680,
+                                 Max = 10200,
+                                 DegreesAtMin = 0,
+                                 DegreesAtMax = 180,
+                           },
+                            ThighSettings   = new ServoSettings{
+                                 Num = 13,
+                                 Min = 1680,
+                                 Max = 10200,
+                                 DegreesAtMin = 0,
+                                 DegreesAtMax = 180,
+                           },
+                           ShinSettings     = new ServoSettings{
+                                 Num = 14,
+                                 Min = 1680,
+                                 Max = 10200,
+                                 DegreesAtMin = 0,
+                                 DegreesAtMax = 180,
+                           },
+                           PressureSettings = new SensorSettings { Num = 15 },
+                      },
+                      new LegSettings{
+                           Type = LegType.BackRight,
+                           ScapulaSettings  = new ServoSettings{
+                                 Num = 18,
+                                 Min = 1680,
+                                 Max = 10200,
+                                 DegreesAtMin = 0,
+                                 DegreesAtMax = 180,
+                           },
+                            ThighSettings   = new ServoSettings{
+                                 Num = 19,
+                                 Min = 1680,
+                                 Max = 10200,
+                                 DegreesAtMin = 0,
+                                 DegreesAtMax = 180,
+                           },
+                           ShinSettings     = new ServoSettings{
+                                 Num = 20,
+                                 Min = 1680,
+                                 Max = 10200,
+                                 DegreesAtMin = 0,
+                                 DegreesAtMax = 180,
+                           },
+                           PressureSettings = new SensorSettings { Num = 21 },
+                      },
+                 }
+            };
         }
-        Usc connectToDevice()
-        {
-            // Get a list of all connected devices of this type.
-            var connectedDevices = Usc.getConnectedDevices();
-
-            foreach (DeviceListItem dli in connectedDevices)
-            {
-                // If you have multiple devices connected and want to select a particular
-                // device by serial number, you could simply add a line like this:
-                //   if (dli.serialNumber != "00012345"){ continue; }
-
-                var device = new Usc(dli); // Connect to the device.
-                return device;             // Return the device.
-            }
-            throw new Exception("Could not find device.  Make sure it is plugged in to USB " +
-                "and check your Device Manager (Windows) or run lsusb (Linux).");
-        }
-
     }
 }

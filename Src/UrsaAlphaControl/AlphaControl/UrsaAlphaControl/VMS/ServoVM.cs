@@ -3,34 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ursa.Cerebellum;
 
 namespace UrsaAlphaControl.VMS
 {
     public class ServoVM : VMBase
     {
-        public ServoVM(Servo servo) {
+        public ServoVM(IServoChannel servo) {
             this.Servo = servo;
-            servo.StatusUpdated += servo_StatusUpdated;
+            servo.ChannelUpdated += servo_ChannelUpdated;
         }
 
-        void servo_StatusUpdated(Servo arg1, Pololu.Usc.ServoStatus arg2)
+        void servo_ChannelUpdated(IChannel arg1, DateTime arg2)
         {
-            ActualPercentValue = arg1.GetPercentValue();
-            ActualValueDegrees = arg1.GetDegreesValue();
-            ActualAcceleration = arg1.Status.acceleration;
-            ActualSpeed        = arg1.Status.speed;
+            ActualPercentValue = Servo.GetActualNormalized()*100;
+            ActualValueDegrees = Servo.GetActualInDegrees();
+            ActualAcceleration = Servo.Status.Acceleration;
+            ActualSpeed        = Servo.Status.Speed;
         }
-        public Servo Servo { get; protected set; }
-        public double PercentValueForSet
+
+        public IServoChannel Servo { get; protected set; }
+        public float PercentValueForSet
         {
             get { return percentValueForSet; }
             set {
                 percentValueForSet = value; 
                 Raise("PercentValueForSet");
-                Servo.SetPercentValue(value);
+                Servo.WriteNormalized(value / (float)100);
             } 
         }
-        double percentValueForSet;
+        float percentValueForSet;
 
         public double ActualSpeed { get { return actualSpeed; } set { actualSpeed = value; Raise("ActualSpeed"); } }
         double actualSpeed;

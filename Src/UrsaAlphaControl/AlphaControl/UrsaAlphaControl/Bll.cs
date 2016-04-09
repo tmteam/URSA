@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace UrsaAlphaControl
 {
+    /*
     public static class Tools
     {
         public static ushort Proportion(double value, double valueA, double valueB, ushort returnsAtA, ushort returnsAtB)
@@ -120,6 +121,7 @@ namespace UrsaAlphaControl
             
         }
     }
+
     public class Body
     {
         public Body()
@@ -195,5 +197,5 @@ namespace UrsaAlphaControl
             //}
         }
 
-    }
+    }*/
 }

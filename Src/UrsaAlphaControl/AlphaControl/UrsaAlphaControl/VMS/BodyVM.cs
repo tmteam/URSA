@@ -4,14 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ursa.Body;
 using UrsaAlphaControl.Commands;
 
 namespace UrsaAlphaControl.VMS
 {
-    public class UrsaVM: VMBase
+    public class BodyVM: VMBase
     {
         public Body Body { get; protected set; }
-        public UrsaVM(Body body) {
+        public BodyVM(Body body) {
             isConnected = false;
             Legs = new FourLegsVM(body);
             Connect = new CommandBase();
@@ -28,14 +29,9 @@ namespace UrsaAlphaControl.VMS
                 Disconnect.SetCanExecute(isConnected);
             } }
         bool isConnected;
-
-
+        
         public CommandBase Connect { get; set; }
         public CommandBase Disconnect { get; set; }
-
-
         public FourLegsVM Legs { get; set; }
-
-      
     }
 }
