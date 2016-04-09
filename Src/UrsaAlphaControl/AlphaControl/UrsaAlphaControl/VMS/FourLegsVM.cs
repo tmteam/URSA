@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ursa.Body;
 
 namespace UrsaAlphaControl.VMS
 {
@@ -10,18 +11,14 @@ namespace UrsaAlphaControl.VMS
     {
         public FourLegsVM(Body body) {
             this.Body = body;
-            FrontLeft = new LegVM(body.FrontLeft)   {
-                Name = body.FrontLeft.Num+ "FL",
-            };
-            FrontRight = new LegVM(body.FrontRight) {
-                Name = body.FrontRight.Num + "FR"
-            };
-            BackLeft = new LegVM(body.BackLeft)     {
-                Name = body.BackLeft.Num + "BL"
-            };
-            BackRight = new LegVM(body.BackRight)   {
-                Name = body.BackRight.Num + "BR"
-            };
+            FrontLeft = Create(body.FrontLeft) ;
+            FrontRight = Create(body.FrontRight);
+            BackLeft = Create(body.BackLeft) ;
+            BackRight = Create(body.BackRight);
+        }
+        LegVM Create(Leg leg)
+        {
+            return new LegVM(leg) { Name = leg.Type.ToString() };
         }
         public Body Body { get; protected set; }
         

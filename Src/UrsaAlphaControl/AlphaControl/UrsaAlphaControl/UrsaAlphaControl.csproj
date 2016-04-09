@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -67,7 +70,7 @@
     <Compile Include="VMS\FourLegsVM.cs" />
     <Compile Include="VMS\LegVM.cs" />
     <Compile Include="VMS\ServoVM.cs" />
-    <Compile Include="VMS\UrsaVM.cs" />
+    <Compile Include="VMS\BodyVM.cs" />
     <Compile Include="VMS\VMBase.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -108,6 +111,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -118,6 +122,18 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MaestroChanelsControl\Ursa.Cerebellum.csproj">
+      <Project>{a27ba0c8-0669-4732-b5bf-4fa9223d754c}</Project>
+      <Name>Ursa.Cerebellum</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ursa.Cerbellum.Maestro24Controller\Ursa.Cerebellum.Maestro24Controller.csproj">
+      <Project>{e7504130-0f18-4e3a-9e87-6292fe16f6c1}</Project>
+      <Name>Ursa.Cerebellum.Maestro24Controller</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UrsaBody\Ursa.Body.csproj">
+      <Project>{b6267fc1-75ff-43f5-9d19-b1228d10055e}</Project>
+      <Name>Ursa.Body</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Usc\Usc.csproj">
       <Project>{3ce41957-f003-4eef-82ab-3ebb2f88ddbc}</Project>
       <Name>Usc</Name>

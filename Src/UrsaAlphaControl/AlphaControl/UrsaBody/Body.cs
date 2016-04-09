@@ -19,7 +19,7 @@ namespace Ursa.Body
         public Leg BackLeft { get; protected set; }
         public Leg BackRight { get; protected set; }
 
-        public void Setup(BodySettings settings){
+        public void Configurate(BodySettings settings){
             if(Legs!=null)
                 throw new InvalidOperationException("Ursa body is already configurated");
             

@@ -6,16 +6,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Ursa.Cerebellum;
 
-namespace Ursa.Cerbellum.Maestro24Controller
+namespace Ursa.Cerebellum.Maestro24Controller
 {
     public class MaestroSensorChannel: ChannelBase, ISensorChannel, IMaestroChannel
     {
-        public MaestroSensorChannel(Usc device, byte num)
+        public MaestroSensorChannel( byte num)
             : base(num)
         {
-            this.Device = device;
         }
-        public Pololu.Usc.Usc Device { get; protected set; }
+        public Pololu.Usc.Usc Device { get; set; }
         
         ServoStatus deviceChannelStatus;
         public Pololu.Usc.ServoStatus DeviceChannelStatus

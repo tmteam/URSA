@@ -6,11 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Ursa.Cerebellum;
 
-namespace Ursa.Cerbellum.Maestro24Controller
+namespace Ursa.Cerebellum.Maestro24Controller
 {
     public interface IMaestroChannel:IChannel
     {
-        Usc Device { get;  }
+        Usc Device { get; set; }
         ServoStatus DeviceChannelStatus { get; set; }
     }
 }

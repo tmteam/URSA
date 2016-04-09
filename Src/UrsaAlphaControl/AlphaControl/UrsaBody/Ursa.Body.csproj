@@ -45,6 +45,7 @@
     <Compile Include="LegSettings.cs" />
     <Compile Include="LegType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tools.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MaestroChanelsControl\Ursa.Cerebellum.csproj">

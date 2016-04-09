@@ -17,21 +17,21 @@ namespace Ursa.Body
             ISensorChannel pressure)
         {
             this.Type       = type;
-            this.Scapule    = scapula;
+            this.Scapula    = scapula;
             this.Thigh      = thigh;
             this.Shin       = shin;
             this.Pressure   = pressure;
             this.Cerebellum = cerebellum;
             cerebellum.ValuesUpdated += cerebellum_ValuesUpdated;
         }
-
         
         public LegType Type { get; protected set; }
         public ICerebellum Cerebellum { get; protected set; }
-        public IServoChannel Scapule { get; protected set; }
+        public IServoChannel Scapula { get; protected set; }
         public IServoChannel Thigh { get; protected set; }
         public IServoChannel Shin { get; protected set; }
         public ISensorChannel Pressure { get; protected set; }
+
         public event Action<Leg, DateTime> ValuesUpdated;
         void cerebellum_ValuesUpdated(ICerebellum arg1, DateTime arg2)
         {

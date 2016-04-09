@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Ursa.Cerebellum;
 
-namespace Ursa.Cerbellum.Maestro24Controller
+namespace Ursa.Cerebellum.Maestro24Controller
 {
     /// <summary>
     /// Cerebellum implementation for maestro 24 IO controller
@@ -24,7 +24,6 @@ namespace Ursa.Cerbellum.Maestro24Controller
                     ConnectionStatusChanged(this, value);
             }
         }
-        bool wasConnected= false;
         public Usc Device { get; protected set; }
         IMaestroChannel[] channels = null;
         public bool IsConfigurated { get; protected set; }
@@ -39,30 +38,30 @@ namespace Ursa.Cerbellum.Maestro24Controller
         public event Action<Maestro24Controller, bool> ConnectionStatusChanged;
         public event Action<Cerebellum.ICerebellum, DateTime> ValuesUpdated;
 
-        public void Connect()
-        {
+        public void Connect() {
             if (IsConnected)
                 throw new InvalidOperationException("The device is already connected");
-            if(wasConnected)
-                throw new InvalidOperationException("the implementation does not allow recconection. Use a new cerebellum exemplar instead");
             // Get a list of all connected devices of this type.
             var connectedDevices = Usc.getConnectedDevices();
-
             if (connectedDevices.Count == 0)
                 throw new Exception("Could not find device.  Make sure it is plugged in to USB " +
                "and check your Device Manager (Windows) or run lsusb (Linux).");
             Device = new Usc(connectedDevices.First());
             IsConnected = true;
-            wasConnected = true;
+            foreach (var channel in channels) {
+                channel.Device = Device;
+            }
         }
 
-        public void Disconnect()
-        {
+        public void Disconnect() {
             if(!isConnected)
                 throw new InvalidOperationException("The device is not connected");
             Device.disconnect();
             Device = null;
             IsConnected = false;
+            foreach (var channel in channels) {
+                channel.Device = null;
+            }
         }
 
         public void StarupSetup()
@@ -110,32 +109,33 @@ namespace Ursa.Cerbellum.Maestro24Controller
             foreach (var setting in settings)
             {
                 IMaestroChannel channel;
-                var servoSetting = setting as ServoSettings;
-                if (servoSetting != null)
-                    channel = new MaestroServoChannel(Device, setting.Num)
+                if (setting is ServoSettings) {
+                    var servoSetting = (ServoSettings)setting;
+                    channel = new MaestroServoChannel(setting.Num)
                     {
                         DegreesAtMin = servoSetting.DegreesAtMin,
                         DegreesAtMax = servoSetting.DegreesAtMax,
                     };
-                else {
-                    var sensorSetting = setting as SensorSettings;
-                    if (sensorSetting != null)
-                        channel = new MaestroSensorChannel(Device, setting.Num);
-                    else
-                        channel = new MaestroEmptyChannel(Device, setting.Num);
                 }
+                else if (setting is SensorSettings) {
+                    var sensorSetting = (SensorSettings)setting;
+                    channel = new MaestroSensorChannel(setting.Num);
+                }
+                else
+                    channel = new MaestroEmptyChannel(setting.Num);
                 
                 var baseChannel = channel as ChannelBase;
                 baseChannel.Min = setting.Min;
                 baseChannel.Max = setting.Max;
 
-                newChannels[servoSetting.Num] = channel;
+                newChannels[setting.Num] = channel;
             }
             for (int i = 0; i < newChannels.Length; i++)
             {
                 if (newChannels[i] == null)
-                    newChannels[i] = new MaestroEmptyChannel(Device, (byte)i);
+                    newChannels[i] = new MaestroEmptyChannel((byte)i);
             }
+            channels = newChannels;
             IsConfigurated = true;
 
         }

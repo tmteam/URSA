@@ -6,11 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Ursa.Cerebellum;
 
-namespace Ursa.Cerbellum.Maestro24Controller
+namespace Ursa.Cerebellum.Maestro24Controller
 {
     public class MaestroServoChannel: ServoChannelBase, IMaestroChannel
     {
-        public MaestroServoChannel(Usc device, byte channelNum) : base(channelNum) { }
+        public MaestroServoChannel(byte channelNum) : base(channelNum) { }
         public override void WriteSpeed(ushort speed) {
             if (Device != null)
                 Device.setTarget(this.Num, speed);
@@ -26,7 +26,7 @@ namespace Ursa.Cerbellum.Maestro24Controller
                 Device.setTarget(this.Num, target);
         }
 
-        public Usc Device { get;  protected set; }
+        public Usc Device { get;  set; }
 
         ServoStatus channelStatus;
         public new ServoStatus DeviceChannelStatus {
