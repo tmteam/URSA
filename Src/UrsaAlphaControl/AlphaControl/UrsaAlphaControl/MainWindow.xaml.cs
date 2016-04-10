@@ -64,13 +64,12 @@ namespace UrsaAlphaControl
         {
             try {
                 cerebellum.Disconnect();
-                ursa.IsConnected = false;
                 writer.Stop();
               //  var telemetry = Ursa.Cerebellum.Tools.ReadTelemeteryFile(writer.DataFilePath);
             }
             catch{
-                
             }
+            ursa.IsConnected = cerebellum.IsConnected;
         }
 
         void Connect_Executed(ICommand arg1, object arg2)
@@ -78,14 +77,13 @@ namespace UrsaAlphaControl
             try {
                 cerebellum.Connect();
                 cerebellum.StarupSetup();
-                ursa.IsConnected = true;
                 writer.Start();
             }
             catch(Exception ex) {
-                try { cerebellum.Disconnect(); }
-                catch { }
-                ursa.IsConnected = false;
+                if(cerebellum.IsConnected)
+                    cerebellum.Disconnect(); 
             }
+            ursa.IsConnected = cerebellum.IsConnected;
         }
 
         BodySettings GetDefaultSettings()

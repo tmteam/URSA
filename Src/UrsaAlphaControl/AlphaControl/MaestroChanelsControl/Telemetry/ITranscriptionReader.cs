@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ursa.Cerebellum.Telemetry
 {
-    public class TelemetrySession {
-        public Frame[] Frames;
-        public Header Header;
+    class ITranscriptionReader
+    {
     }
 }

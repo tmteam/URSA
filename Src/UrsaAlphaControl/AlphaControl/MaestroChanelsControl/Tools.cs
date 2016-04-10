@@ -10,7 +10,7 @@ namespace Ursa.Cerebellum
 {
     public static class Tools
     {
-        public static TelemetrySession ReadTelemeteryFile(string telemetryFilePath)
+        public static TelemetryUnit ReadTelemeteryFile(string telemetryFilePath)
         {
             using (var file = new FileStream(telemetryFilePath, FileMode.Open, FileAccess.Read))
             {
@@ -31,7 +31,7 @@ namespace Ursa.Cerebellum
                         break;
                     }
                 }
-                var ans = new  TelemetrySession{
+                var ans = new  TelemetryUnit{
                      Frames = frames.ToArray()
                 };
                 try{

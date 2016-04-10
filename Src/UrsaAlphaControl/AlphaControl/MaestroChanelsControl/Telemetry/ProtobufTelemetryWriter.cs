@@ -17,7 +17,7 @@ namespace Ursa.Cerebellum.Telemetry
 
             notSavedData = new List<Frame>(MaxRecordsPerSaving);
             directoryPath = directoryPath ?? Directory.GetCurrentDirectory();
-            var timeStr = DateTime.Now.ToString("HH-mm-ss__dd_mm_yyyy");
+            var timeStr = DateTime.Now.ToString("HH-mm-ss__dd_MMM_yyyy");
             DataFilePath = Path.Combine(directoryPath, "u"+timeStr+".telemetry");
             //Writes frame's length Header at start of the file:
             using (var file = new FileStream(DataFilePath, FileMode.Create)) {
