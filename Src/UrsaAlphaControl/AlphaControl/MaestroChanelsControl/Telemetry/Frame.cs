@@ -9,9 +9,9 @@ namespace Ursa.Cerebellum.Telemetry
 {
     [ProtoContract]
     public class Frame {
-        [ProtoMember(0)] public int Num;
-        [ProtoMember(1)] public int MsecFromLastFrame;
-        [ProtoMember(2)] public SensorValue[] Sensors;
-        [ProtoMember(3)] public ServoValue[]  Servos;
+        [ProtoMember(1)] public int Num;
+        [ProtoMember(2)] public int MsecFromLastFrame;
+        [ProtoMember(3)] public SensorValue[] Sensors;
+        [ProtoMember(4)] public ServoValue[]  Servos;
     }
 }

@@ -10,7 +10,7 @@ namespace Ursa.Cerebellum
     [ProtoContract]
     public struct SensorValue
     {
-        [ProtoMember(0)] public byte Num;
-        [ProtoMember(1)] public ushort Value;
+        [ProtoMember(1)] public byte Num;
+        [ProtoMember(2)] public ushort Value;
     }
 }

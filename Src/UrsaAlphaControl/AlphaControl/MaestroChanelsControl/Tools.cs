@@ -1,13 +1,68 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ursa.Cerebellum.Telemetry;
 
 namespace Ursa.Cerebellum
 {
     public static class Tools
     {
+        public static TelemetrySession ReadTelemeteryFile(string telemetryFilePath)
+        {
+            using (var file = new FileStream(telemetryFilePath, FileMode.Open, FileAccess.Read))
+            {
+                var frameLengthHead = new byte[sizeof(long)];
+                file.Position = 0;
+                file.Read(frameLengthHead, 0, frameLengthHead.Length);
+                var frameLength = BitConverter.ToInt64(frameLengthHead,0);
+                var frames = new List<Frame>();
+                while (file.Position < frameLength) {
+                    try
+                    {
+                        var framesPortion = ProtoBuf.Serializer.DeserializeWithLengthPrefix<Frame[]>(file, ProtoBuf.PrefixStyle.Fixed32);
+                        frames.AddRange(framesPortion);
+                    }
+                    catch
+                    {
+                        //If the frames stream suddenly interupts...
+                        break;
+                    }
+                }
+                var ans = new  TelemetrySession{
+                     Frames = frames.ToArray()
+                };
+                try{
+                    ans.Header = ProtoBuf.Serializer.DeserializeWithLengthPrefix<Header>(file, ProtoBuf.PrefixStyle.Fixed32);
+                }
+                catch{
+                    //It is normaly if the file has no header
+                }
+                return ans;
+            }
+            
+        }   
+        public static void AddFrameIfItIsPossible(ITelemetryWriter transcription, IEnumerable<IChannel> channels)
+        {
+            if (transcription != null && transcription.IsRecoring)
+            {
+                var frame = new Frame();
+
+                frame.Servos = channels
+                    .OfType<IServoChannel>()
+                    .Select(c => c.Status)
+                    .ToArray();
+                
+                frame.Sensors = channels
+                    .OfType<ISensorChannel>()
+                    .Select(c => new SensorValue { Num = c.Num, Value = c.Actual })
+                    .ToArray();
+                
+                transcription.Add(frame);
+            }
+        }
         public static void ThrowIfSettingsAreWrong(this IEnumerable<IChannelSettings> settings)
         {
             if(settings==null)

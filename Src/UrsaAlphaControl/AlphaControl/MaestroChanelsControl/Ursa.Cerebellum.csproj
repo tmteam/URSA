@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Channels\ChannelBase.cs" />
     <Compile Include="Channels\EmptyChannel.cs" />
+    <Compile Include="Telemetry\Frame.cs" />
     <Compile Include="ICerebellum.cs" />
     <Compile Include="Channels\IChannel.cs" />
     <Compile Include="Channels\ISensorChannel.cs" />
@@ -51,9 +52,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Channels\SensorChannel.cs" />
     <Compile Include="Channels\ServoChannelBase.cs" />
+    <Compile Include="Telemetry\Header.cs" />
     <Compile Include="SensorValue.cs" />
     <Compile Include="ServoValue.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="Telemetry\ITelemetryWriter.cs" />
+    <Compile Include="Telemetry\ProtobufTelemetryWriter.cs" />
+    <Compile Include="Telemetry\TelemetrySession.cs" />
     <Compile Include="Tools.cs" />
   </ItemGroup>
   <ItemGroup>

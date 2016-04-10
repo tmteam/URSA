@@ -18,7 +18,7 @@ using System.Windows.Shapes;
 using Ursa.Body;
 using Ursa.Cerebellum;
 using Ursa.Cerebellum.Maestro24Controller;
-
+using Ursa.Cerebellum.Telemetry;
 using UrsaAlphaControl.VMS;
 
 namespace UrsaAlphaControl
@@ -32,6 +32,7 @@ namespace UrsaAlphaControl
         Maestro24Controller cerebellum;
         Body body;
         Timer timer;
+        ProtobufTelemetryWriter writer;
         public MainWindow()
         {
             InitializeComponent();
@@ -43,6 +44,10 @@ namespace UrsaAlphaControl
             this.DataContext = ursa;
             ursa.Connect.Executed += Connect_Executed;
             ursa.Disconnect.Executed += Disconnect_Executed;
+
+            writer = new ProtobufTelemetryWriter();
+            cerebellum.Transcription = writer;
+            
             timer = new Timer(100);
             timer.AutoReset = true;
             timer.Start();
@@ -60,6 +65,8 @@ namespace UrsaAlphaControl
             try {
                 cerebellum.Disconnect();
                 ursa.IsConnected = false;
+                writer.Stop();
+              //  var telemetry = Ursa.Cerebellum.Tools.ReadTelemeteryFile(writer.DataFilePath);
             }
             catch{
                 
@@ -72,8 +79,11 @@ namespace UrsaAlphaControl
                 cerebellum.Connect();
                 cerebellum.StarupSetup();
                 ursa.IsConnected = true;
+                writer.Start();
             }
-            catch {
+            catch(Exception ex) {
+                try { cerebellum.Disconnect(); }
+                catch { }
                 ursa.IsConnected = false;
             }
         }

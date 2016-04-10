@@ -36,10 +36,11 @@ namespace Ursa.Cerebellum.Maestro24Controller
             set {
                 channelStatus = value;
                 Status = new ServoValue {
+                    Num          = this.Num,
                     Acceleration = value.acceleration,
-                    Actual = value.position,
-                    Target = value.target,
-                    Speed = value.speed,
+                    Actual       = value.position,
+                    Target       = value.target,
+                    Speed        = value.speed,
                 };
             }
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ursa.Cerebellum.Telemetry;
 
 namespace Ursa.Cerebellum
 {
@@ -15,6 +16,8 @@ namespace Ursa.Cerebellum
         /// </summary>
         IChannel[] Channels { get; }
         bool IsConfigurated { get; }
+
+        ITelemetryWriter Transcription { get; set; }
         void Configurate(IEnumerable<IChannelSettings> settings);
         /// <summary>
         /// Shows timestamp of a last data update

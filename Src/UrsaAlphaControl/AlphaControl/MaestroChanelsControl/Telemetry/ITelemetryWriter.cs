@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Ursa.Cerebellum.Telemetry
 {
-    public interface ITranscriptionWriter
+    public interface ITelemetryWriter
     {
-        HeaderInfo Header { get; }
-        IEnumerable<Frame> Frames { get; }
+        bool IsRecoring { get; }
+        int FramesCount { get; }
         void Add(Frame frame);
-        void Finalize();
+        DateTime LastAddition { get; }
     }
 }

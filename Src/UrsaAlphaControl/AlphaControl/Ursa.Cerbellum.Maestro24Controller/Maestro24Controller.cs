@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ursa.Cerebellum;
+using Ursa.Cerebellum.Telemetry;
 
 namespace Ursa.Cerebellum.Maestro24Controller
 {
@@ -34,6 +35,8 @@ namespace Ursa.Cerebellum.Maestro24Controller
         public DateTime LastUpdated {
             get { return lastUpdated; }
         }
+
+        public ITelemetryWriter Transcription { get; set; }
 
         public event Action<Maestro24Controller, bool> ConnectionStatusChanged;
         public event Action<Cerebellum.ICerebellum, DateTime> ValuesUpdated;
@@ -91,14 +94,20 @@ namespace Ursa.Cerebellum.Maestro24Controller
         public void UpdateValues() {
             if (Device == null)
                 return;
-                 Pololu.Usc.ServoStatus[] statuses;
+            
+                
+                
+                Pololu.Usc.ServoStatus[] statuses;
                 Device.getVariables(out statuses);
                 foreach (var chn in channels) {
                     chn.DeviceChannelStatus = statuses[chn.Num];
                 }
+                
             lastUpdated = DateTime.Now;
             if (ValuesUpdated != null)
                 ValuesUpdated(this, lastUpdated);
+            
+            Tools.AddFrameIfItIsPossible(this.Transcription, this.channels);
         }
         public void Configurate(IEnumerable<IChannelSettings> settings)
         {
@@ -139,5 +148,8 @@ namespace Ursa.Cerebellum.Maestro24Controller
             IsConfigurated = true;
 
         }
+
+
+        
     }
 }
